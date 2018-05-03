@@ -7,7 +7,7 @@
 #' @param age Variable that defines 5-year age groups, should be ordered and numeric, such as 1 through 18 or
 #'   0 through 18 if the first age group is under 1 years of age.
 #' @param compare Categorical variable that splits the data into groups that are to be compared, such as ethnicity.
-#' @param sets groups that are to be compared, values taken by \code{compare}. The group listed first will be the
+#' @param sets groups that are to be compared (values taken by \code{compare}). The group listed first will be the
 #'    reference category. Must take at least two values.
 #' @param age_group The age groups the standardized rates should be calculated for. By default the function calculates
 #'   results for the following age groups: 0-14, 15-29, 30-44, 45-59, 60-74, 75+, 0-64 and all ages.
@@ -26,12 +26,14 @@
 #' @export
 #'
 #' @examples
+#' d <- health_data
 #'
 #' # Asian population compared to Scottish (reference)
-#' smr(dep_data_long, bad, pop, age, ethnicity, sets = c("Scot", "asian"))
+#' smr(d, bad, pop, age, ethnicity, sets = c("Scot", "asian"))
 #'
 #' # Asian, White British and Irish population compared to Scottish (reference)
-#' #smr(d_pcs, bad, pop, age, ethnicity, sets = c("Scot", "asian", "WB", "Irish"))
+#' smr(d, bad, pop, age, ethnicity, sets = c("Scot", "asian", "WB", "Irish"),
+#'   age_group = c("15-29", "30-44"), CI=99)
 #'
 
 
