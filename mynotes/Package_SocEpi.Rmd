@@ -1,0 +1,39 @@
+---
+title: "Social epidemiology analysis in R with SocEpi package"
+author: "Mirjam Allik"
+date: "3 November 2017"
+output: pdf_document
+---
+
+
+The SocEpi package was developed social epidemiological analysis of small area data on health outcomes. The core functions calculate standardised rates, SMR and measures of health inequality (SII/RII) for different age groups. It also provides tools for developing deprivation measures that are frequently used to study health inequalities.
+
+
+## Motivation
+
+https://rstudio-pubs-static.s3.amazonaws.com/107181_6b6493a4065d4ec28c5863344c565378.html
+
+
+## Other packages
+
+There are a few other packages for demographic and epidemiological analysis.
+
+I used the search phrases "public health", "health inequalities", "social epidemiology", "epidemiology", "demography", "mortality rate", "mortality" on Metacran <https://www.r-pkg.org/> and crantastic! <https://crantastic.org/>
+
+I also used the `sos` package search.
+
+I looked at the downloads using package `dlstats` <https://cran.r-project.org/web/packages/dlstats/vignettes/dlstats.html>
+
+```{r}
+library("ggplot2")
+library("dlstats")
+
+x <- cran_stats(c("popEpi", "epiR", "Epi", "epitools"))
+head(x)
+
+ggplot(x, aes(end, downloads, group=package, color=package)) +
+    geom_line() + geom_point(aes(shape=package))
+```
+
+Function `rate` in package `popEpi` will provide standardized rates and the rates can be calculated for one or more different goups (e.g. by area deprivation and/or sex). The standardization is done across all age groups and different data and weights need to be provided if standardization for specifc subset of age groups is needed.
+

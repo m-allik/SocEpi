@@ -1,0 +1,45 @@
+---
+title: "R package SocEpi"
+author: "Mirjam Allik"
+date: "13 December 2017"
+output: beamer_presentation
+---
+
+
+## Motivation
+
+Public health research, health inequalities
+
+- Crating small-area deprivation measures
+- Measuring socio-economic inequalities in health
+
+Brown, D., Allik, M. , Dundas, R. and Leyland, A. H. (2014) *Carstairs Scores for Scottish Postcode Sectors, Datazones and Output Areas from the 2011 Census.* Technical Report. MRC/CSO Social and Public Health Sciences Unit, University of Glasgow, Glasgow.
+
+
+## Other packages
+
+Roughly 150 packages related to "public health", "health inequalities", "social epidemiology", "epidemiology", "demography", "mortality rate", "mortality".
+
+Only four more closely related to this work: *popEpi*, *epiR*, *Epi*, *epitools*
+
+- Overlap: calculation of standardized rates, rate ratios and SE/CI for these
+
+- Differences: scope/flexibility of these functions, methods for SE/CI
+
+- Gap: not many tools specific to health inequalities research
+
+
+## Future plans
+
+- Testing 
+    + Researchers' needs
+    + Bugs, idiosyncrasies
+- Enhance functions
+    + contribution of specific causes to inequality
+    + different methods for CI
+- New functions
+    + Other measures of inequalities
+- Review of public health packages/functions in R
+
+
+
