@@ -1,8 +1,8 @@
-#' Scottish health and deprivation data - long format
+#' Scottish health and deprivation data
 #'
-#' A dataset on deprivation and self-rated health outcomes for postcode sectors from 2011 Scottish Census in long format
+#' A dataset on deprivation and self-rated health outcomes for postcode sectors from 2011 Scottish Census by ethnicity.
 #'
-#' @format A data frame with 54648 rows and 24 variables:
+#' @format A data frame with 182160 rows and 19 variables:
 #' \describe{
 #'   \item{PS_code}{postcode sector code}
 #'   \item{PS_name}{postcode sector name}
@@ -15,14 +15,9 @@
 #'   \item{pcnt_no_car}{Percent of people in households with no access to a car/van}
 #'   \item{pcnt_low_class}{Percent of people in low social class}
 #'   \item{carstairs}{The 2011 Carstairs score}
-#'   \item{pcnt_limited_lot}{Percent of people whose day-to-day activities are limited a lot}
-#'   \item{pcnt_no_llti}{Percent of people whose day-to-day activities are not limited}
-#'   \item{pcnt_bad_health}{Percent of people in bad health}
-#'   \item{pcnt_good_health}{Percent of people in good health}
 #'   \item{quintile}{Quintiles of the Carstairs score; 1 - least deprived, 5 - most deprived}
 #'   \item{decile}{Deciles of the Carstairs score; 1 - least deprived, 10 - most deprived}
-#'   \item{quintile_2}{Quintiles of the Carstairs score, factor variable coded in text}
-#'   \item{ethnicity}{Ethnic group, either "all" for all people, "Scot" for Scottish and "asian" for Asians}
+#'   \item{ethnicity}{Ethnic group, "all" for all people}
 #'   \item{age}{age group, 1 - "0-4", 2 - "5-9", up to 18 - "85 and above"}
 #'   \item{bad}{number of people in bad general health}
 #'   \item{fg}{number of people in fairly good health}
@@ -33,4 +28,4 @@
 #'  \url{https://www.gla.ac.uk/researchinstitutes/healthwellbeing/research/mrccsosocialandpublichealthsciencesunit/programmes/inequalities/carstairsscores/}
 #' @source For health data see the 2011 census commissioned tables \url{http://www.scotlandscensus.gov.uk/ods-web/data-warehouse.html#additionaltab}
 
-"dep_data_long"
+"health_data"
