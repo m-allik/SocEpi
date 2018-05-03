@@ -25,7 +25,7 @@
 #' @param N Number of simulations for the confidence intervals, defaults to 1000
 #' @param RII Logical, should RII or SII be calculated, default \code{RII=TRUE}
 #' @param CI Confidence intervals, 95 by default but can be set to any number between 0 and 100.
-#' @param W Logical, should data be weighted before calculating RII/SII, default \code{W=FALSE}
+#' @param W Logical, should weighted regression be used for RII/SII, default \code{W=FALSE}
 #' @param thousand Should rates be calculated per 1000 (default) or 100 000, relevant for SII only
 #' @param method The method to be used for simulating confidence intervals. Default \code{method = "multinomial"}.
 #'    The CI are calculated using a multinomial distribution as described in Lumme et al (2015)
@@ -41,13 +41,13 @@
 #'
 #' @export
 #' @examples
-#' d <- dep_data_long
+#' d <- health_data
 #'
 #' #RII with 95% CI
 #' rii(d, bad, pop, quintile, age, ethnicity == "all")
 #'
 #' #SII with 99% CI
-#' rii(d, bad, pop, quintile, age, ethnicity == "all", RII=FALSE, CI=99)
+#' rii(d, bad, pop, quintile, age, ethnicity == "all", RII=FALSE, CI=99, W=T)
 #'
 #' #supply own population weights
 #' new_w <- c(0.075, 0.075, 0.075, 0.06, 0.060, 0.060, 0.06, 0.070, 0.050,
@@ -148,11 +148,10 @@ rii <- function(data, health, population, ses, age, groups=NULL, age_group=NULL,
 
   if (W==F) {
     sii_obs <- rates %>%
-      summarise(sii = beta(x=cum_p, Y=rate))
+      summarise(sii = beta(x=cum_p, y=rate))
   } else {
     sii_obs <- rates %>%
-      mutate(w = sqrt(pop), rate=rate*w, cum_p = w*cum_p) %>%
-      summarise(sii = beta(a=w, x=cum_p, Y=rate))
+      summarise(sii = beta(x=cum_p, y=rate, w= sqrt(pop) ))
   }
 
 
@@ -199,11 +198,10 @@ rii <- function(data, health, population, ses, age, groups=NULL, age_group=NULL,
 
   if (W==F) {
     sii_s <- rates_s %>%
-      summarise(sii = beta(x=cum_p, Y=rate_sim))
+      summarise(sii = beta(x=cum_p, y=rate_sim))
   } else {
     sii_s <- rates_s %>%
-      mutate(w = sqrt(pop), rate_sim = rate_sim*w, cum_p = w*cum_p) %>%
-      summarise(sii = beta(a=w, x=cum_p, Y=rate_sim))
+      summarise(sii = beta(x=cum_p, y=rate_sim, w=sqrt(pop)))
   }
 
 
