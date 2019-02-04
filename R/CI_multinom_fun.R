@@ -1,20 +1,25 @@
-#' Function for CI simulation using the multinomial distribution, internal function.
+#' Multinomial simulation for CIs
+#'
+#' \code{CI_multinom} simulates CI using the multinomial distribution, internal function.
 #'
 #'
-#' @param df data frame
-#' @param N Number of simulations
-#' @param n_g Number of deprivation categories/groups
+#' @param df Data frame of observed health counts and population by deprivation.
+#' @param N Number of simulations.
+#' @param n_g Number of deprivation categories/groups.
 #'
-#' @return Data frame of simulated data
+#' @return Data frame of simulated confidence intervals.
+#'
+#' @keywords internal
 #'
 #' @importFrom stats rmultinom
 #'
 
 CI_multinom <- function(df, N, n_g) {
 
-  age_g <- unique(df$age)
+  age_g <- unique(df$age)[order(unique(df$age))]
   probs <- tapply(df$health, list(df$age, df$ses), sum)
   probs[probs==0] <- 0.01
+  probs[is.na(probs)] <- 0.01
   rs <- rowSums(probs)
   probs <- cbind(probs/rs, rs)
 

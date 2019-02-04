@@ -29,43 +29,30 @@
 #' #calculate quintiles with w_pcntile
 #' data$Q_overcrowd2 <- w_pcntile(data, total_pop, pcnt_overcrowding, p=5)
 #'
-#' #compare results - note minute differences
+#' #compare results - note small differences
 #' table(data$Q_overcrowd, data$Q_overcrowd2)
 
 
 
 w_pcntile <- function(data, population, variable, p=10, low=F) {
 
-  #function starts - subset data
+  # function starts - subset data
   df <- subset_q(data, NULL, substitute(c(population, variable))) #select data from data frame
   names(df) <- c("population", "variable") #give names to use within function
 
-  #number of cases
+  # number of cases
   N <- length(df$population)
   df$index <- 1:N
 
-  #Order dataset
+  # Order dataset
   df <- df[order(df$variable, decreasing=low), ]
 
-  #calculate total population and cut-points/size of the decile
+  # calculate total population and cut-points/size of the decile
   pop <- sum(df$population)
   cp <- pop/p + mean(df$population)/2 + sd(df$population)/2
-  dec <- 1:p
 
-  df$decile <- NULL
-  h <- 1
-  i <- 1
-
-    for (k in 1:(p-1)) {
-
-      while (sum(df$population[h:i]) <= cp) {
-        df$decile[i] <- dec[k]
-        i <- i + 1
-        }
-      h <- i
-    }
-
-  df$decile[i:N] <- dec[p]
+  # pcnt_loop is a c++ function within the package
+  df$decile <- pcnt_loop(df$population, df$variable, p, cp)
 
   df <- df[order(df$index),]
   return(df$decile)

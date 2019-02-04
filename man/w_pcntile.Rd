@@ -42,6 +42,6 @@ data$Q_overcrowd <- cut(data$dec_overcrowd, breaks=5, labels=1:5)
 #calculate quintiles with w_pcntile
 data$Q_overcrowd2 <- w_pcntile(data, total_pop, pcnt_overcrowding, p=5)
 
-#compare results - note minute differences
+#compare results - note small differences
 table(data$Q_overcrowd, data$Q_overcrowd2)
 }
