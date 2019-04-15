@@ -33,7 +33,6 @@
 #' table(data$Q_overcrowd, data$Q_overcrowd2)
 
 
-
 w_pcntile <- function(data, population, variable, p=10, low=F) {
 
   # function starts - subset data
