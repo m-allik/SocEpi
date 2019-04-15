@@ -2,20 +2,21 @@
 % Please edit documentation in R/CI_multinom_fun.R
 \name{CI_multinom}
 \alias{CI_multinom}
-\title{Function for CI simulation using the multinomial distribution, internal function.}
+\title{Multinomial simulation for CIs}
 \usage{
 CI_multinom(df, N, n_g)
 }
 \arguments{
-\item{df}{data frame}
+\item{df}{Data frame of observed health counts and population by deprivation.}
 
-\item{N}{Number of simulations}
+\item{N}{Number of simulations.}
 
-\item{n_g}{Number of deprivation categories/groups}
+\item{n_g}{Number of deprivation categories/groups.}
 }
 \value{
-Data frame of simulated data
+Data frame of simulated confidence intervals.
 }
 \description{
-Function for CI simulation using the multinomial distribution, internal function.
+\code{CI_multinom} simulates CI using the multinomial distribution, internal function.
 }
+\keyword{internal}

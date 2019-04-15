@@ -16,7 +16,7 @@
 
 CI_multinom <- function(df, N, n_g) {
 
-  age_g <- unique(df$age)[order(unique(df$age))]
+  age_g <- unique(df$age)[order(unique(df$age))] # order age groups
   probs <- tapply(df$health, list(df$age, df$ses), sum)
   probs[probs==0] <- 0.01
   probs[is.na(probs)] <- 0.01

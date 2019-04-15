@@ -1,11 +1,16 @@
-#' Calculate slope/beta of an OLS regression using matrix algebra.
-#' This will be the Slope Index of Inequality (SII).
+#' Slope of an OLS regression
 #'
-#' @param x population distribution
-#' @param y standardized rates for calculation
-#' @param w weight, default \code{NULL}
+#' \code{beta} will calculate the slope of an OLS regression using matrix algebra.
+#' This will be the Slope Index of Inequality (SII). Weighted least squares slope is calculated
+#' when weights are supplied.
+#'
+#' @param x Population distribution.
+#' @param y Standardized rates for calculation.
+#' @param w Weight for weighted least squares regression, default \code{NULL}.
 #'
 #' @return Slope of an OLS regression.
+#'
+#' @keywords internal
 #'
 
 

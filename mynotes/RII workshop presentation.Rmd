@@ -1,0 +1,113 @@
+---
+title: "R package SocEpi"
+author: "Mirjam Allik"
+date: "10 October 2018"
+output: beamer_presentation
+---
+
+
+## Motivation
+
+Research on health inequalities
+
+- Crating small-area deprivation measures
+- Calculation of standardized rates
+- Measuring socio-economic inequalities in health
+
+
+\fontsize{6pt}{7.2}\selectfont
+
+Brown, D., Allik, M. , Dundas, R. and Leyland, A. H. (2014) *Carstairs Scores for Scottish Postcode Sectors, Datazones and Output Areas from the 2011 Census.* Technical Report. MRC/CSO Social and Public Health Sciences Unit, University of Glasgow, Glasgow.
+
+Allik, M., Brown, D., Dundas, R. and Leyland, A. H. (2016) *Developing a new small-area measure of deprivation using 2001 and 2011 census data from Scotland.* Health and Place, 39, pp. 122-130.
+
+Allik, M. Brown, D., Dundas, R. and Leyland, A. H. (under review) *Differences in Ill Health and Health Inequalities among Ethnic Groups: Population Study using 2011 Scottish Census*
+
+
+
+## Other packages
+
+Roughly 150 packages related to "public health", "health inequalities", "social epidemiology", "epidemiology", "demography", "mortality rate", "mortality".
+
+Only four more closely related to this work: *popEpi*, *epiR*, *Epi*, *epitools*
+
+- Overlap: calculation of standardized rates, rate ratios and SE/CI for these
+
+- Differences: scope/flexibility of these functions, methods for SE/CI
+
+- Gap: not many tools specific to health inequalities research
+
+
+## Calculating RII/SII - formula
+
+
+`rii(data, health, population, ses, age, ...)`
+
+- Standardized rates (ESP 2013 default) 
+
+- Linear regression: $y = \alpha + \beta x$
+    + SII is $\beta$ coefficient
+  
+- RII is SII divided by mean health  
+  
+- Weighted regression an option
+
+
+
+## Calculating RII/SII - population mid-points
+
+```{r echo=FALSE, fig.width=8}
+x <- c(0.1, 0.3, 0.5, 0.7, 0.9)
+
+z <- c(0.16, 0.18, 0.2, 0.22, 0.24)
+#sum(z)
+x2 <-c(0, cumsum(as.numeric(z))[-length(z)]) + z/2
+
+y <- c(150, 200, 270, 310, 400)
+
+plot(x, y, xlim = c(0, 1), ylim = c(0, 500), bty="n", col="blue", pch = 20, xlab="Population mid-points", ylab = "Mortality rate")
+abline(lm(y~x), col="blue")
+points(x2, y, col="red", pch=20)
+abline(lm(y~x2), col="red")
+
+text(0, 500, paste("RII = ", round(lm(y~x2)$coef[2], 1), " (population distribution: 16, 18, 20, 22, 24)",
+                   sep = ""), col="red", pos = 4)
+text(0, 450, paste("RII = ", round(lm(y~x)$coef[2], 1), " (population distribution: 20%)", 
+                   sep = ""), col="blue", pos = 4)
+
+```
+
+## Confidence intervals
+
+- Usually either not shown or based on *S.E.* from regression
+
+- Based on simulation
+    + Lumme et al (2015) *A Monte Carlo method to estimate the confidence intervals for the concentration index using aggregated population register data.* Health Services & Outcomes Research Methodology, 15(2), 82-98.
+    + Wider CIs
+
+
+
+## Where to get it?
+
+
+Google "R package SocEpi"
+
+
+<https://github.com/m-allik/SocEpi>
+
+
+
+## Future plans
+
+
+- Testing 
+    + Researchers' needs
+    + Bugs, idiosyncrasies
+- Enhance functions
+    + different methods for CI
+- New functions
+    + Other measures of inequalities
+- Review of public health packages/functions in R
+
+
+

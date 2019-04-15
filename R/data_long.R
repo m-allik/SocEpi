@@ -1,19 +1,16 @@
 #' Scottish health and deprivation data
 #'
-#' A dataset on deprivation and self-rated health outcomes for postcode sectors from 2011 Scottish Census by ethnicity.
+#' A data set on deprivation and self-rated health outcomes for postcode sectors from 2011 Scottish Census by ethnicity.
 #'
-#' @format A data frame with 182160 rows and 19 variables:
+#' @format A data frame with 182160 rows and 15 variables:
 #' \describe{
 #'   \item{PS_code}{postcode sector code}
 #'   \item{PS_name}{postcode sector name}
 #'   \item{health_board}{health board name}
 #'   \item{council_area}{Council area name}
-#'   \item{ur2fold}{Two-fold urban rural classification (created based on output area level data)}
+#'   \item{ur2fold}{Two-fold urban rural classification (created based on output area level data).
+#'      Used in this data set for illustration only.}
 #'   \item{total_pop}{Total population of the postcode sector}
-#'   \item{pcnt_overcrowding}{Percent of people living in overcrowded households}
-#'   \item{pcnt_male_unemp}{Percent of unemployed men}
-#'   \item{pcnt_no_car}{Percent of people in households with no access to a car/van}
-#'   \item{pcnt_low_class}{Percent of people in low social class}
 #'   \item{carstairs}{The 2011 Carstairs score}
 #'   \item{quintile}{Quintiles of the Carstairs score; 1 - least deprived, 5 - most deprived}
 #'   \item{decile}{Deciles of the Carstairs score; 1 - least deprived, 10 - most deprived}

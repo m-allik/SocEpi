@@ -1,39 +1,41 @@
-#' Calculate RII/SII and confidence intervals
-#'
+#' RII/SII and confidence intervals
+#' hhh
 #' \code{rii} calculates the relative index of inequality (RII) or the slope index of inequality (SII) and
 #' confidence intervals for either measure. The SII is obtained via OLS regression of the health variable
-#' on the midpoints of the cummulative population distribution.
+#' on the midpoints of the cumulative population distribution.
 #' The RII is calculated as SII divided by health outcome across all socioeconomic positions. Simulation
 #' is used to calculate confidence intervals (see \code{method} below).
 #'
-#' @param data Name of dataset.
+#' @param data Name of data set.
 #' @param health Health outcome of interest.
 #' @param population Population counts. Should correspond to data provided in \code{health}.
-#' @param ses Categorical deprivation measure used for splitting the data.
-#' @param age Variable that defines 5-year age groups, should be ordered and numeric, such as 1 through 18 or
-#'   0 through 18 if the first age group is under 1 years of age.
+#' @param ses Categorical deprivation measure used for splitting the data. Should be ordered, such as numeric or a factor.
+#' @param age Variable that defines 5-year age groups, should be ordered and numeric, such as 1 through 18.
+#'   If the age group coding starts with 0 it will be assumed that age groups 0 and 1-4 are separate.
+#'   If the age group starts with 1, it will be assumed that the first age group is 0-4 (ages 0 and 1-4 are combined).
 #' @param groups Conditions such as sex or ethnicity that together define the sub-population for which the
-#'   RII/SII is calculated for. See examples. Default is \code{NULL}, no sub-population is selected.
+#'   RII/SII is calculated for. Default is \code{NULL}, no sub-population is selected.
 #' @param age_group The age groups the standardized rates should be calculated for. By default the function calculates
 #'   results for the following age groups: 0-14, 15-29, 30-44, 45-59, 60-74, 75+, 0-64 and all ages.
-#'   User supplied age groups should be provided using the standard population groups as cut-offs, e.g.
-#'   \code{age_group=c("20-29", "25-39")} and not "19-30" or "21-41". Open ended age groups can be supplied by giving
-#'   a single age, e.g. "45" means 45 and above. Overlaping age groups, e.g. \code{c("20-29", "25-34")}, are not supported.
+#'   User supplied age groups should be provided using the standard population groups as cut-offs, e.g. use
+#'   \code{age_group=c("20-29", "30-39")} and not \code{c("19-30", "31-41")}. Open ended age groups can be supplied by giving
+#'   a single age, e.g. "45" means 45 and above. Overlapping age groups, such as \code{c("20-29", "25-34")}, are not supported.
 #'   Results for ages 0-64 and all ages will always be provided.
-#' @param st_pop the standard population weights used for calculating rates, default 2013 ESP for 18 age groups with 0-4 as
-#'   the first age group. See \code{\link{st_pop}} for other predefined options. Can be user supplied (must add up to 1).
-#' @param N Number of simulations for the confidence intervals, defaults to 1000
-#' @param RII Logical, should RII or SII be calculated, default \code{RII=TRUE}
+#' @param st_pop The standard population weights used for calculating rates, default 2013 ESP for 18 age groups with 0-4 as
+#'   the first age group. See \code{\link{st_pop}} for other predefined options. Can be user supplied, but must match
+#'   the number of age groups given in \code{age} and add up to 1.
+#' @param N Number of simulations for the confidence intervals, default 1000.
+#' @param RII Logical, should RII or SII be calculated, default \code{RII=TRUE}.
 #' @param CI Confidence intervals, 95 by default but can be set to any number between 0 and 100.
-#' @param W Logical, should weighted regression be used for RII/SII, default \code{W=FALSE}
-#' @param thousand Should rates be calculated per 1000 (default) or 100 000, relevant for SII only
-#' @param method The method to be used for simulating confidence intervals. Default \code{method = "multinomial"}.
+#' @param method The method used for simulating confidence intervals. Default \code{method = "multinomial"}.
 #'    The CI are calculated using a multinomial distribution as described in Lumme et al (2015)
 #'    "A Monte Carlo method to estimate the confidence intervals for the concentration index
 #'    using aggregated population register data." Health Services & Outcomes Research Methodology, 15(2),
 #'    82-98. \url{http://doi.org/10.1007/s10742-015-0137-1}
+#' @param W Logical, should weighted regression be used for RII/SII, default \code{W=FALSE}.
+#' @param thousand Should rates be calculated per 1000 (default) or 100 000, relevant for SII only.
 #'
-#' @return A data frame giving RII/SII by age groups and for ages 0-64 and all ages together with confidence intervals
+#' @return A data frame giving RII/SII by age groups together with confidence intervals
 #'
 #' @import tidyr
 #' @import dplyr
@@ -43,25 +45,27 @@
 #' @examples
 #' d <- health_data
 #'
-#' #RII with 95% CI
+#' # RII with 95% CI
 #' rii(d, bad, pop, quintile, age, ethnicity == "all")
 #'
-#' #SII with 99% CI
-#' rii(d, bad, pop, quintile, age, ethnicity == "all", RII=FALSE, CI=99, W=T)
+#' # SII with 99% CI, using weighted least squares
+#' rii(d, bad, pop, quintile, age, ethnicity == "all", RII=FALSE, CI=99, W=TRUE)
 #'
-#' #supply own population weights
+#' # Supply own population weights
 #' new_w <- c(0.075, 0.075, 0.075, 0.06, 0.060, 0.060, 0.06, 0.070, 0.050,
 #'    0.050, 0.050, 0.06, 0.060, 0.055, 0.050, 0.040, 0.025, 0.025)
 #'
+#' # RII with user supplied weights
 #' rii(d, bad, pop, quintile, age, ethnicity == "all", RII=FALSE, CI=99, st_pop=new_w)
 #'
-#' #SII for new age groups with 95% CI
+#' # SII for new age groups with 95% CI
 #' rii(d, bad, pop, quintile, age, ethnicity == "Scot" &  ur2fold == "Urban",
 #'    age_group=c("0-19", "20-34", "35-49"), RII=FALSE)
+#'
 
 
 rii <- function(data, health, population, ses, age, groups=NULL, age_group=NULL, st_pop="esp2013_18ag",
-                N=1000, RII=T, CI=95, W=F, thousand=1000, method = "multinomial") {
+                N=1000, RII=T, CI=95, method = "multinomial", W=F, thousand=1000) {
 
   #For package building only - to get rid of NOTEs
   cr <- rate <- sii <- . <- w <- age_health <- ci_low <- ci_high <- NULL
@@ -134,7 +138,7 @@ rii <- function(data, health, population, ses, age, groups=NULL, age_group=NULL,
   #================================================================================================================
 
   if (RII==T) {
-  #healt rates by age across all SES - needed for RII later
+  #health rates by age across all SES - needed for RII later
   all_rates <- bind_rows(d6g, d64, da) %>%
     select(ses, age, rate)  %>%
     filter(ses==n_g+1)

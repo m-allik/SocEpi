@@ -2,22 +2,23 @@
 % Please edit documentation in R/beta_fun.R
 \name{beta}
 \alias{beta}
-\title{Calculate slope/beta of an OLS regression using matrix algebra.
-This will be the Slope Index of Inequality (SII).}
+\title{Slope of an OLS regression}
 \usage{
-beta(a = 1, x, Y)
+beta(x, y, w = NULL)
 }
 \arguments{
-\item{a}{alpha, default \code{a=1}}
+\item{x}{Population distribution.}
 
-\item{x}{population distribution}
+\item{y}{Standardized rates for calculation.}
 
-\item{Y}{standardized rates for calculation}
+\item{w}{Weight for weighted least squares regression, default \code{NULL}.}
 }
 \value{
 Slope of an OLS regression.
 }
 \description{
-Calculate slope/beta of an OLS regression using matrix algebra.
-This will be the Slope Index of Inequality (SII).
+\code{beta} will calculate the slope of an OLS regression using matrix algebra.
+This will be the Slope Index of Inequality (SII). Weighted least squares slope is calculated
+when weights are supplied.
 }
+\keyword{internal}

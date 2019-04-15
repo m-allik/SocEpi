@@ -7,11 +7,11 @@
 subset_q(df, condition, variables)
 }
 \arguments{
-\item{df}{data frame}
+\item{df}{Data frame to be subsetted.}
 
-\item{condition}{subsetting condition}
+\item{condition}{Subsetting condition, such as which rows to select.}
 
-\item{variables}{variables to include in subset}
+\item{variables}{Variables to include in subset.}
 }
 \value{
 A smaller data frame of subsetted data.
@@ -19,3 +19,4 @@ A smaller data frame of subsetted data.
 \description{
 Internal use only, allows subsetting within another function (for use of NSE in functions).
 }
+\keyword{internal}

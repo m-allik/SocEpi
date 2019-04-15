@@ -1,15 +1,19 @@
 Package: SocEpi
 Type: Package
 Title: Tools for for health inequality analysis
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: person("Mirjam", "Allik", email="mirjam.allik@gmail.com",
                   role=c("aut", "cre"))
 Description: The package provides a number of functions for analysing health and mortality data. 
     It also provides tools for calculating deprivation measures and analysing health outcomes and mortality by deprivation.
-License: file LICENSE
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Depends: R (>= 3.2.0)
-Imports: tidyr,
-    dplyr
+Imports: 
+    tidyr,
+    dplyr,
+    Rcpp
+LinkingTo: 
+    Rcpp

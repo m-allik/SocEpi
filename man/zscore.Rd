@@ -2,14 +2,14 @@
 % Please edit documentation in R/z_score_fun.R
 \name{zscore}
 \alias{zscore}
-\title{Calculates z-scores}
+\title{z-scores}
 \usage{
 zscore(population, variable)
 }
 \arguments{
-\item{population}{distribution (in numbers)}
+\item{population}{Population counts.}
 
-\item{variable}{the deprivation measure to calculate the z-scores for}
+\item{variable}{Continuous deprivation measure, such as a percentage, to calculate the z-scores for.}
 }
 \value{
 A list including the following:
@@ -19,23 +19,26 @@ A list including the following:
  \item{weight}{population weight}
 }
 \description{
-\code{zscores} calculates standardized scores with a mean close to zero and standard deviation close to one
-for the variable given in \code{variable}.
-The standardization uses the population weighted mean and standard deviation, which are calculated based on the
+\code{zscores} calculates standardized scores or z-scores, with a mean close to zero and standard deviation (sd)
+close to one, for the variable given in \code{variable}.
+The standardization uses a population weighted mean and standard deviation, which are calculated based on the
 population distribution given by \code{population}.
 }
 \examples{
 data <- dep_data
 
-#store all data in object z_oz
-z_oz <- zscore(data$total_pop, data$pcnt_overcrowding)
+# store all data in object z_oc
+z_oc <- zscore(data$total_pop, data$pcnt_overcrowding)
 
-#extract z-score
-data$z_overcrowd <- z_oz$z.score
+# extract z-score
+data$z_overcrowd <- z_oc$z.score
 mean(data$z_overcrowd) #mean of z-score
 sd(data$z_overcrowd) #sd z-score
 
-#compare weighted mean to actual mean
+# compare weighted mean to actual mean
 mean(data$pcnt_overcrowding)
+z_oc$w.mean
 sd(data$pcnt_overcrowding)
+z_oc$w.sd
+
 }

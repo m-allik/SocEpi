@@ -1,12 +1,16 @@
-#' Age grouping function that creates standard population weights for user selected age groups.
-#' Allows for flexible age groups selection in rii and st_rate functions. Internal use only.
+#' Age grouping function
 #'
-#' @param age_group age groups for which the results are to be provided
-#' @param st_pop standard population weights to use
-#' @param min_age minimum age group (is it 0)
-#' @param n_age number of age groups
+#' Age grouping function creates standard population weights for user selected age groups.
+#' Allows for flexible age groups selection in smr, rii and st_rate functions. Internal use only.
+#'
+#' @param age_group character string of age groups for which the results are to be provided.
+#' @param st_pop standard population weights to use.
+#' @param min_age minimum age group (to check if it is 0 or 0-4).
+#' @param n_age number of age groups.
 #'
 #' @return A small data frame of weights for user selected age groups.
+#'
+#' @keywords internal
 #'
 
 age_grouping <- function(age_group, st_pop, min_age, n_age) {

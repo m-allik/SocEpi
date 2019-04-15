@@ -1,27 +1,31 @@
-#' Calculates standardized mortality rates and confidence intervals
+#' Standardized mortality rates and confidence intervals
 #'
-#' \code{st_rate} calculates standardized mortality rates and the 95\% or 99\% confidence intervals.
-#'   Standardization uses the 2013 European Standard population.
-#' @param data Name of dataset.
+#' \code{st_rate} calculates direct standardized mortality rates and the 95\% or 99\% confidence intervals.
+#'   Default standardization uses the 2013 European Standard Population, but other built-in or user supplied
+#'   weights can also be supplied.
+#'
+#' @param data Name of data set.
 #' @param health Health outcome of interest.
 #' @param population Population counts. Should correspond to data provided in \code{health}.
 #' @param ses Categorical deprivation measure used for splitting the data.
-#' @param age Variable that defines 5-year age groups, should be ordered and numeric, such as 1 through 18 or
-#'   0 through 18 if the first age group is under 1 years of age.
+#' @param age Variable that defines 5-year age groups, should be ordered and numeric, such as 1 through 18.
+#'   If the age group coding starts with 0 it will be assumed that age groups 0 and 1-4 are separate.
+#'   If the age group starts with 1, it will be assumed that the first age group is 0-4 (ages 0 and 1-4 are combined).
 #' @param groups Conditions such as sex or ethnicity that together define the sub-population for which the
-#'   RII/SII is calculated for. See examples. Default is \code{NULL}, no sub-population is selected.
+#'   rates are calculated for. Default is \code{NULL}, no sub-population is selected.
 #' @param age_group The age groups the standardized rates should be calculated for. By default the function calculates
 #'   results for the following age groups: 0-14, 15-29, 30-44, 45-59, 60-74, 75+, 0-64 and all ages.
-#'   User supplied age groups should be provided using the standard population groups as cut-offs, e.g.
-#'   \code{age_group=c("20-29", "25-39")} and not "19-30" or "21-41". Open ended age groups can be supplied by giving
-#'   a single age, e.g. "45" means 45 and above. Overlaping age groups, e.g. \code{c("20-29", "25-34")}, are not supported.
+#'   User supplied age groups should be provided using the standard population groups as cut-offs, e.g. use
+#'   \code{age_group=c("20-29", "30-39")} and not \code{c("19-30", "31-41")}. Open ended age groups can be supplied by giving
+#'   a single age, e.g. "45" means 45 and above. Overlapping age groups, such as \code{c("20-29", "25-34")}, are not supported.
 #'   Results for ages 0-64 and all ages will always be provided.
-#' @param st_pop the standard population weights used for calculating rates, default 2013 ESP for 18 age groups with 0-4 as
-#'   the first age group. See \code{\link{st_pop}} for other predefined options. Can be user supplied (must add up to 1).
-#' @param CI Confidence intervals, 95 by default but can be set to any number between 0 to 100.
-#' @param thousand Should rates be calculated per 1000 or 100 000, default 1000
+#' @param st_pop The standard population weights used for calculating rates, default 2013 ESP for 18 age groups with 0-4 as
+#'   the first age group. See \code{\link{st_pop}} for other predefined options. Can be user supplied, but must match
+#'   the number of age groups given in \code{age} and add up to 1.
+#' @param CI Confidence intervals, 95 by default but can be set to any number between 0 and 100.
+#' @param total The total number of people in the standard population, i.e. are rates be calculated per 1000 or 100 000, default 1000
 #'
-#' @return A data frame giving standardized rates by age and deprivation together with CI.
+#' @return A data frame giving standardized rates by age group and deprivation together with CI.
 #'
 #' @import tidyr
 #' @import dplyr
@@ -29,17 +33,22 @@
 #'
 #' @export
 #' @examples
-#' d <- dep_data_long
+#' d <- health_data
 #'
-#' #Standardized rates for all people
+#' # Standardized rates for all people
 #' st_rate(d, bad, pop, quintile, age, ethnicity=="all")
 #'
-#' #Standardized rates for Scottish, with 99% CI
-#' st_rate(d, bad, pop, quintile, age, ethnicity=="Scot", CI=99)
+#' # or save results
+#' rate_data <- st_rate(d, bad, pop, quintile, age, ethnicity=="all")
+#' # Then use View(rate_data) to view results
+#'
+#' # Standardized rates for Scottish, with 99% CI
+#' st_rate(d, bad, pop, quintile, age, ethnicity=="Scot", age_group=c("15-29", "30-44"), CI=99)
+#'
 
 
-st_rate <- function(data, health, population, ses, age, groups=NULL,  age_group=NULL, st_pop="esp2013_18ag",
-                    CI=95, thousand=1000) {
+st_rate <- function(data, health, population, ses, age, groups=NULL, age_group=NULL, st_pop="esp2013_18ag",
+                    CI=95, total=1000) {
 
   #For package building only - to get rid of NOTEs
   cr <- rate <- . <- sp_g1 <- sp_g2 <-  CI_low <- CI_high <- sp <- g1 <- g2 <- NULL
@@ -68,7 +77,7 @@ st_rate <- function(data, health, population, ses, age, groups=NULL,  age_group=
       summarise_all(sum) %>%
       bind_rows(D_A) %>%
       mutate(population = ifelse(population < 1, 1, population),
-        cr = health/population*thousand) %>%
+        cr = health/population*total) %>%
       ungroup() %>%
       right_join(dw, by="age")
 

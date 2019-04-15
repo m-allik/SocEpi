@@ -2,11 +2,13 @@
 #'
 #' Internal use only, allows subsetting within another function (for use of NSE in functions).
 #'
-#' @param df data frame
-#' @param condition subsetting condition
-#' @param variables variables to include in subset
+#' @param df Data frame to be subsetted.
+#' @param condition Subsetting condition, such as which rows to select.
+#' @param variables Variables to include in subset.
 #'
 #' @return A smaller data frame of subsetted data.
+#'
+#' @keywords internal
 #'
 #' @importFrom stats setNames
 #'

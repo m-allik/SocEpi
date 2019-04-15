@@ -2,18 +2,19 @@
 % Please edit documentation in R/popmid_fun.R
 \name{popmid}
 \alias{popmid}
-\title{Calculates midpoints for population distribution.}
+\title{Population midpoints}
 \usage{
 popmid(x)
 }
 \arguments{
-\item{x}{vector of population distribution that sums up to 1}
+\item{x}{Vector of population distribution that sums to 1.}
 }
 \value{
-A vector of population midpoints
+A vector of population midpoints.
 }
 \description{
-\code{popmid} calculates the (cumulative) midpoints for population percentiles that can then be used as the
-  predictor in the OLS model for calculating the slope or the relative index of inequality (SII).
-  The function is mainly for internal use within the \code{rii} function.
+\code{popmid} calculates the cumulative midpoints for population percentiles that can then be used as the
+  predictor in the OLS model for calculating the slope, i.e. the slope index of inequality (SII).
+  For internal use within the \code{rii} function.
 }
+\keyword{internal}

@@ -1,11 +1,12 @@
-#' Calculates z-scores
+#' z-scores
 #'
-#' \code{zscores} calculates standardized scores with a mean close to zero and standard deviation close to one
-#' for the variable given in \code{variable}.
-#' The standardization uses the population weighted mean and standard deviation, which are calculated based on the
+#' \code{zscores} calculates standardized scores or z-scores, with a mean close to zero and standard deviation (sd)
+#' close to one, for the variable given in \code{variable}.
+#' The standardization uses a population weighted mean and standard deviation, which are calculated based on the
 #' population distribution given by \code{population}.
-#' @param population distribution (in numbers)
-#' @param variable the deprivation measure to calculate the z-scores for
+#'
+#' @param population Population counts.
+#' @param variable Continuous deprivation measure, such as a percentage, to calculate the z-scores for.
 #'
 #' @return A list including the following:
 #'  \item{z.score}{standardized score using weighted mean and sd}
@@ -18,17 +19,20 @@
 #' @examples
 #' data <- dep_data
 #'
-#' #store all data in object z_oz
-#' z_oz <- zscore(data$total_pop, data$pcnt_overcrowding)
+#' # store all data in object z_oc
+#' z_oc <- zscore(data$total_pop, data$pcnt_overcrowding)
 #'
-#' #extract z-score
-#' data$z_overcrowd <- z_oz$z.score
+#' # extract z-score
+#' data$z_overcrowd <- z_oc$z.score
 #' mean(data$z_overcrowd) #mean of z-score
 #' sd(data$z_overcrowd) #sd z-score
 #'
-#' #compare weighted mean to actual mean
+#' # compare weighted mean to actual mean
 #' mean(data$pcnt_overcrowding)
+#' z_oc$w.mean
 #' sd(data$pcnt_overcrowding)
+#' z_oc$w.sd
+#'
 
 
 zscore <- function(population, variable) {

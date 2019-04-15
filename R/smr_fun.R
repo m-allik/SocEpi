@@ -1,24 +1,25 @@
-#' Standardized mortality ratios and CIs
+#' Standardized mortality ratios and confidence intervals
 #'
 #' The function \code{smr} calculates standardized mortality ratios (SMR) and confidence intervals for SMR.
-#' @param data Name of dataset.
+#' @param data Name of data set.
 #' @param health Health outcome of interest.
 #' @param population Population counts. Should correspond to data provided in \code{health}.
-#' @param age Variable that defines 5-year age groups, should be ordered and numeric, such as 1 through 18 or
-#'   0 through 18 if the first age group is under 1 years of age.
+#' @param age Variable that defines 5-year age groups, should be ordered and numeric, such as 1 through 18.
+#'   If the age group coding starts with 0 it will be assumed that age groups 0 and 1-4 are separate.
+#'   If the age group starts with 1, it will be assumed that the first age group is 0-4 (ages 0 and 1-4 are combined).
 #' @param compare Categorical variable that splits the data into groups that are to be compared, such as ethnicity.
-#' @param sets groups that are to be compared (values taken by \code{compare}). The group listed first will be the
+#' @param sets Groups that are to be compared (values taken by \code{compare}). The group listed first will be the
 #'    reference category. Must take at least two values.
 #' @param age_group The age groups the standardized rates should be calculated for. By default the function calculates
 #'   results for the following age groups: 0-14, 15-29, 30-44, 45-59, 60-74, 75+, 0-64 and all ages.
+#'   User supplied age groups should be provided using the standard population groups as cut-offs, e.g. use
+#'   \code{age_group=c("20-29", "30-39")} and not \code{c("19-30", "31-41")}. Open ended age groups can be supplied by giving
+#'   a single age, e.g. "45" means 45 and above. Overlapping age groups, such as \code{c("20-29", "25-34")}, are not supported.
 #'   Results for ages 0-64 and all ages will always be provided.
-#'   User supplied age groups should be provided using the standard population groups as cut-offs, e.g.
-#'   \code{age_group=c("20-29", "25-39")} and not "19-30" or "21-41". Open ended age groups can be supplied by giving
-#'   a single age, e.g. "45" means 45 and above. Overlaping age groups, e.g. \code{c("20-29", "25-34")}, are not supported.
 #' @param CI Confidence intervals, 95 by default but can be set to any number between 0 and 100.
 #'   For calculation method see user guide.
 #'
-#' @return A data frame of standardized mortality ratios (SMR) and CIs
+#' @return A data frame of standardized mortality ratios (SMR) and CIs.
 #'
 #' @importFrom stats qnorm
 #' @importFrom stats aggregate

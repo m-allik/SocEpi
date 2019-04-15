@@ -3,8 +3,8 @@
 \docType{data}
 \name{dep_data}
 \alias{dep_data}
-\title{Scottish deprivation data based on the 2011 Scottish Census}
-\format{A data frame with 1012 rows and 20 variables:
+\title{Scottish deprivation data}
+\format{A data frame with 1012 rows and 26 variables:
 \describe{
   \item{PS_code}{postcode sector code}
   \item{PS_name}{postcode sector name}
@@ -32,13 +32,14 @@
 For Carstairs deprivation data look at
  \url{https://www.gla.ac.uk/researchinstitutes/healthwellbeing/research/mrccsosocialandpublichealthsciencesunit/programmes/inequalities/carstairsscores/}
 
-Self-rated health are from the 2011 census \url{http://www.scotlandscensus.gov.uk/}
+Self-rated health data are from the 2011 census \url{http://www.scotlandscensus.gov.uk/}
 }
 \usage{
 dep_data
 }
 \description{
-The dataset provides the Carstairs deprivation scores, deciles, quintiles and individual indicators for
-Scottish postcode sectors in 2011. A few self-rated health variables from the census are also provided.
+The data set provides the Carstairs deprivation scores, deciles, quintiles and individual Carstairs score
+variables for Scottish postcode sectors in 2011. A few self-rated health variables from the 2011 Scottish
+Census are also provided.
 }
 \keyword{datasets}
