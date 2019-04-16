@@ -38,7 +38,7 @@
 #' # Standardized rates for all people
 #' st_rate(d, bad, pop, quintile, age, ethnicity=="all")
 #'
-#' # or save results
+#' # Or save results
 #' rate_data <- st_rate(d, bad, pop, quintile, age, ethnicity=="all")
 #' # Then use View(rate_data) to view results
 #'
@@ -47,32 +47,32 @@
 #'
 
 
-st_rate <- function(data, health, population, ses, age, groups=NULL, age_group=NULL, st_pop="esp2013_18ag",
-                    CI=95, total=1000) {
+st_rate <- function(data, health, population, ses, age, groups = NULL, age_group = NULL,
+          st_pop = "esp2013_18ag", CI = 95, total = 1000) {
 
-  #For package building only - to get rid of NOTEs
+  # For package building only - to get rid of NOTEs
   cr <- rate <- . <- sp_g1 <- sp_g2 <-  CI_low <- CI_high <- sp <- g1 <- g2 <- NULL
 
-  #function starts
-  df <- subset_q(data, substitute(groups), substitute(c(health, population, ses, age))) #select data from data frame
-  names(df) <- c("health", "population", "ses", "age") #give names to use within function
+  # Function starts
+  df <- subset_q(data, substitute(groups), substitute(c(health, population, ses, age))) # select data from data frame
+  names(df) <- c("health", "population", "ses", "age") # Give names to use within function
 
-  n_g <- length(table(df$ses)) #number of groups of the ses variable
-  name <- names(table(df$ses)) #names of the grous for the ses variable
+  n_g <- length(table(df$ses)) # Number of groups of the ses variable
+  name <- names(table(df$ses)) # Names of the grous for the ses variable
   if (!is.numeric(df$ses)) {df$ses <- as.integer(df$ses)}
 
-  min_age <- min(df$age) #minimum age age group in the data
-  n_age <- length(unique(df$age)) #number of age groups
-  dw <- age_grouping(age_group, st_pop, min_age, n_age) #weights table for all age groups
+  min_age <- min(df$age) # minimum age age group in the data
+  n_age <- length(unique(df$age)) # number of age groups
+  dw <- age_grouping(age_group, st_pop, min_age, n_age) # weights table for all age groups
 
   if (is.null(age_group)) {age_group=c("0-14", "15-29", "30-44", "45-59", "60-74", "75")}
 
-  #observed data - summarized up by age across all SES
+  # observed data - summarized up by age across all SES
   D_A <- df %>% group_by(age) %>%
       summarise_all(sum) %>%
       mutate(ses=n_g+1)
 
-  #Observed data - by SES and age
+  # Observed data - by SES and age
   DT <- df %>% group_by(ses, age) %>%
       summarise_all(sum) %>%
       bind_rows(D_A) %>%
@@ -81,7 +81,7 @@ st_rate <- function(data, health, population, ses, age, groups=NULL, age_group=N
       ungroup() %>%
       right_join(dw, by="age")
 
-    #standardization
+    # standardization
     da <- DT %>%
       mutate(rate=cr*sp) %>%
       select(ses, rate, health) %>%
@@ -98,7 +98,7 @@ st_rate <- function(data, health, population, ses, age, groups=NULL, age_group=N
       mutate(age=age_group) %>%
       select(-g1)
 
-    #standardization for 0-64
+    # standardization for 0-64
     d64 <- DT %>%
       filter(g2==1) %>%
       mutate(rate=cr*sp/sp_g2) %>%
@@ -108,11 +108,11 @@ st_rate <- function(data, health, population, ses, age, groups=NULL, age_group=N
       mutate(age = "0-64") %>%
       select(-g2)
 
-    #CI for the rates (z score)
+    # CI for the rates (z score)
     p <- CI/100 + (1-CI/100)/2
     z <- qnorm(p)
 
-  #output
+  # output
   rates <- bind_rows(d6g, d64, da) %>%
     ungroup() %>%
     mutate(CI_low = rate - z*(rate/sqrt(health)),

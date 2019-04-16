@@ -2,17 +2,11 @@
 % Please edit documentation in R/rii_fun.R
 \name{rii}
 \alias{rii}
-\title{RII/SII and confidence intervals
-hhh
-\code{rii} calculates the relative index of inequality (RII) or the slope index of inequality (SII) and
-confidence intervals for either measure. The SII is obtained via OLS regression of the health variable
-on the midpoints of the cumulative population distribution.
-The RII is calculated as SII divided by health outcome across all socioeconomic positions. Simulation
-is used to calculate confidence intervals (see \code{method} below).}
+\title{RII/SII and confidence intervals}
 \usage{
 rii(data, health, population, ses, age, groups = NULL,
   age_group = NULL, st_pop = "esp2013_18ag", N = 1000, RII = T,
-  CI = 95, method = "multinomial", W = F, thousand = 1000)
+  CI = 95, method = "multinomial", W = F, total = 1000)
 }
 \arguments{
 \item{data}{Name of data set.}
@@ -55,14 +49,13 @@ using aggregated population register data." Health Services & Outcomes Research 
 
 \item{W}{Logical, should weighted regression be used for RII/SII, default \code{W=FALSE}.}
 
-\item{thousand}{Should rates be calculated per 1000 (default) or 100 000, relevant for SII only.}
+\item{total}{The total number of people in the standard population, i.e. are rates be calculated
+per 1000 or 100 000, default 1000. Relevant for SII only.}
 }
 \value{
 A data frame giving RII/SII by age groups together with confidence intervals
 }
 \description{
-RII/SII and confidence intervals
-hhh
 \code{rii} calculates the relative index of inequality (RII) or the slope index of inequality (SII) and
 confidence intervals for either measure. The SII is obtained via OLS regression of the health variable
 on the midpoints of the cumulative population distribution.

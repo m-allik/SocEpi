@@ -52,7 +52,7 @@ d <- health_data
 # Standardized rates for all people
 st_rate(d, bad, pop, quintile, age, ethnicity=="all")
 
-# or save results
+# Or save results
 rate_data <- st_rate(d, bad, pop, quintile, age, ethnicity=="all")
 # Then use View(rate_data) to view results
 
