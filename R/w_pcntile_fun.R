@@ -51,8 +51,9 @@ w_pcntile <- function(data, population, variable, p=10, low=F) {
     original.index <- df[, "index", drop = F]
     df <- df[!is.na(df$variable), ]
 
-    # if ()... deal with missing population variable? needs to be added
+    # if ()... deal with missing population variable?
   } else {has.missing <- FALSE}
+
 
   # Order dataset
   df <- df[order(df$variable, decreasing=low), ]
