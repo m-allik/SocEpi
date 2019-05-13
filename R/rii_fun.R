@@ -142,7 +142,7 @@ rii <- function(data, health, population, ses, age, groups = NULL, age_group = N
   # Health rates by age across all SES - needed for RII later
   all_rates <- bind_rows(d6g, d64, da) %>%
     select(ses, age, rate)  %>%
-    filter(ses==n_g+1)
+    filter(ses==n_g + 1)
   }
 
   rates <- bind_rows(d6g, d64, da) %>%
@@ -151,12 +151,12 @@ rii <- function(data, health, population, ses, age, groups = NULL, age_group = N
     group_by(age) %>%
     mutate(cum_p = popmid(pop)) %>% rename(dep=ses)
 
-  if (W==F) {
+  if (W == F) {
     sii_obs <- rates %>%
-      summarise(sii = beta(x=cum_p, y=rate))
+      summarise(sii = beta(x = cum_p, y = rate))
   } else {
     sii_obs <- rates %>%
-      summarise(sii = beta(x=cum_p, y=rate, w= sqrt(pop) ))
+      summarise(sii = beta(x = cum_p, y = rate, w = pop )) # weighted by population share
   }
 
 
@@ -203,10 +203,10 @@ rii <- function(data, health, population, ses, age, groups = NULL, age_group = N
 
   if (W==F) {
     sii_s <- rates_s %>%
-      summarise(sii = beta(x=cum_p, y=rate_sim))
+      summarise(sii = beta(x = cum_p, y = rate_sim))
   } else {
     sii_s <- rates_s %>%
-      summarise(sii = beta(x=cum_p, y=rate_sim, w=sqrt(pop)))
+      summarise(sii = beta(x = cum_p, y = rate_sim, w = pop)) # weighted by population share
   }
 
 
