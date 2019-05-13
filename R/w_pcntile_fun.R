@@ -43,6 +43,15 @@ w_pcntile <- function(data, population, variable, p=10, low=F) {
   N <- length(df$population)
   df$index <- 1:N
 
+  # Remove missing data
+  if (any(is.na(df$variable))) {
+    has.missing <- TRUE
+    original.index <- df[, "index", drop = F]
+    df <- df[!is.na(df$variable), ]
+
+    # if ()... deal with missing population variable?
+  }
+
   # Order dataset
   df <- df[order(df$variable, decreasing=low), ]
 
@@ -53,7 +62,14 @@ w_pcntile <- function(data, population, variable, p=10, low=F) {
   # pcnt_loop is a c++ function within the package
   df$decile <- pcnt_loop(df$population, df$variable, p, cp)
 
+  if (has.missing) {
+    # add data to original index, thereby padding again with NA values
+    df <- merge(original.index, df, by = "index", all=T)
+
+  }
+
+  # order data by index
   df <- df[order(df$index),]
+
   return(df$decile)
 }
-
