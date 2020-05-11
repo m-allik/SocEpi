@@ -4,8 +4,18 @@
 \alias{st_rate}
 \title{Standardized mortality rates and confidence intervals}
 \usage{
-st_rate(data, health, population, ses, age, groups = NULL,
-  age_group = NULL, st_pop = "esp2013_18ag", CI = 95, total = 1000)
+st_rate(
+  data,
+  health,
+  population,
+  ses,
+  age,
+  groups = NULL,
+  age_group = NULL,
+  st_pop = "esp2013_18ag",
+  CI = 95,
+  total = 1000
+)
 }
 \arguments{
 \item{data}{Name of data set.}

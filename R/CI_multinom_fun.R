@@ -28,9 +28,9 @@ CI_multinom <- function(df, N, n_g) {
 
   #simulated data
   Ds <- apply(probs, 1, function(f) {rmultinom(N, f[(n_g + 1)], f[1:n_g])})
-  Ds <- lapply(split(Ds, rep(c(1:N), each=n_g)), matrix, ncol=n_g, byrow=T)
+  Ds <- lapply(split(Ds, rep(c(1:N), each = n_g)), matrix, ncol = n_g, byrow = T)
   Ds[] <- lapply(Ds, function(f) {f/pop})
-  Ds <- data.frame(sim=rep(1:N, each=length(age_g)), age=rep(age_g, N), do.call(rbind, Ds), row.names = NULL)
+  Ds <- data.frame(sim = rep(1:N, each = length(age_g)), age = rep(age_g, N), do.call(rbind, Ds), row.names = NULL)
 
   return(Ds)
 }

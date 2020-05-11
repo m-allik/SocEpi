@@ -4,8 +4,7 @@
 \alias{smr}
 \title{Standardized mortality ratios and confidence intervals}
 \usage{
-smr(data, health, population, age, compare, sets, age_group = NULL,
-  CI = 95)
+smr(data, health, population, age, compare, sets, age_group = NULL, CI = 95)
 }
 \arguments{
 \item{data}{Name of data set.}

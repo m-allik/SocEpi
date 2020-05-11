@@ -22,7 +22,8 @@
 #'   \item{pop}{number of people in age and ethnic group in postcode sector}
 #'   }
 #' @source For Carstairs deprivation data look at
-#'  \url{https://www.gla.ac.uk/researchinstitutes/healthwellbeing/research/mrccsosocialandpublichealthsciencesunit/programmes/inequalities/carstairsscores/}
+#'  \url{http://www.sphsu.mrc.ac.uk/carstairs_2011_report_final_v3_-update-06-16-.pdf}
+#'
 #' @source For health data see the 2011 census commissioned tables \url{http://www.scotlandscensus.gov.uk/ods-web/data-warehouse.html#additionaltab}
 
 "health_data"

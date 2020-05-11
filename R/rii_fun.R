@@ -30,7 +30,7 @@
 #' @param method The method used for simulating confidence intervals. Default \code{method = "multinomial"}.
 #'    The CI are calculated using a multinomial distribution as described in Lumme et al (2015)
 #'    "A Monte Carlo method to estimate the confidence intervals for the concentration index
-#'    using aggregated population register data." Health Services & Outcomes Research Methodology, 15(2),
+#'    using aggregated population register data." Health Services and Outcomes Research Methodology, 15(2),
 #'    82-98. \url{http://doi.org/10.1007/s10742-015-0137-1}
 #' @param W Logical, should weighted regression be used for RII/SII, default \code{W=FALSE}.
 #' @param total The total number of people in the standard population, i.e. are rates be calculated
@@ -50,18 +50,18 @@
 #' rii(d, bad, pop, quintile, age, ethnicity == "all")
 #'
 #' # SII with 99% CI, using weighted least squares
-#' rii(d, bad, pop, quintile, age, ethnicity == "all", RII=FALSE, CI=99, W=TRUE)
+#' rii(d, bad, pop, quintile, age, ethnicity == "all", RII = FALSE, CI = 99, W = TRUE)
 #'
 #' # Supply own population weights
 #' new_w <- c(0.075, 0.075, 0.075, 0.06, 0.060, 0.060, 0.06, 0.070, 0.050,
 #'    0.050, 0.050, 0.06, 0.060, 0.055, 0.050, 0.040, 0.025, 0.025)
 #'
 #' # RII with user supplied weights
-#' rii(d, bad, pop, quintile, age, ethnicity == "all", RII=FALSE, CI=99, st_pop=new_w)
+#' rii(d, bad, pop, quintile, age, ethnicity == "all", RII = FALSE, CI = 99, st_pop = new_w)
 #'
 #' # SII for new age groups with 95% CI
 #' rii(d, bad, pop, quintile, age, ethnicity == "Scot" &  ur2fold == "Urban",
-#'    age_group=c("0-19", "20-34", "35-49"), RII=FALSE)
+#'    age_group=c("0-19", "20-34", "35-49"), RII = FALSE)
 #'
 
 

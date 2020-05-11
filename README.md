@@ -15,14 +15,22 @@ The R package `SocEpi` is developed for health inequalities research. This is th
 To install the package in R type:
 
 ```
+install.packages("SocEpi")
+library(SocEpi)
+```
+
+
+or from Github
+
+```
 install.packages(devtools) # if not installed before
 devtools::install_github("m-allik/SocEpi")
 ```
 
 # How to use
 
-Please take a look at the user guide or function help files for examples of how to use the package.
+Please take a look at the vignette or help files for examples of how to use the package.
 
 # Feedback
 
-Please use the repository's *Issues* section if you have any comments, suggestions or if you notice any problems with the functions.
+Please use the GitHub repository's *Issues* section if you have any comments, suggestions or if you notice any problems with the functions.

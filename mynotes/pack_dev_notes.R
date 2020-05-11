@@ -1,11 +1,12 @@
 #libraries and tools ncessary for creating a package
 library(devtools)
 library(roxygen2)
+library(usethis)
 library(testthat)
 library(knitr)
 
 find_rtools()
-has_devel() # This has to result in TRUE
+has_devel()
 
 
 #create package
@@ -25,19 +26,31 @@ devtools::document()
 
 roxygen2::roxygenise()
 
+usethis::use_vignette("SocEpi-vignette")
 
-devtools::use_build_ignore("mynotes") #ingnore directory "mynotes"
+usethis::use_build_ignore("mynotes") #ingnore directory "mynotes"
+usethis::use_build_ignore("cran-comments.md") #ingnore cran comments
+usethis::use_build_ignore("NEWS.md") #ingnore cran comments
 
 devtools::check()
 devtools::install()
+library(SocEpi)
+
+use_revdep() # Reverse dependency check
+revdepcheck::revdep_check(num_workers = 4)
 
 devtools::load_all()
 
-#may help sometimes to update packages
-#https://github.com/r-lib/devtools/issues/1607
-#update.packages(ask = FALSE, checkBuilt = TRUE)
-#to build package in parent directory
-build()
+devtools::test()
+
+usethis::use_testthat()
+usethis::use_test()
+
+# may help sometimes to update packages
+# https://github.com/r-lib/devtools/issues/1607
+# update.packages(ask = FALSE, checkBuilt = TRUE)
+# to build package in parent directory
+devtools::build()
 devtools::build(binary = TRUE)
 
 #to build package from terminal
@@ -116,7 +129,34 @@ devtools::use_data(health_data)
 names(stn_data)[1:5] <- c("esp2013_18ag", "esp2013_20ag", "esp2013_21ag", "esp1976_18ag", "esp1976_19ag")
 # devtools::use_data(stn_data, internal=T, overwrite = TRUE)
 
-stn_data$who2000_2025_18ag <- c(0.0886, 0.0869, 0.086, 0.0847, 0.0822, 0.0793, 0.0761, 0.0715,
-                  0.0659, 0.0604, 0.0537, 0.0455, 0.0372, 0.0296, 0.0221, 0.0152, 0.0091, 0.006)
 
-devtools::use_data(stn_data, internal=T, overwrite = TRUE)
+
+# WHO standard up to 100+
+stn_data$who2025_21ag <- c(0.0886, 0.0869, 0.086, 0.0847, 0.0822, 0.0793, 0.0761, 0.0715, 0.0659, 0.0604,
+                  0.0537, 0.0455, 0.0372, 0.0296, 0.0221, 0.0152, 0.0091, 0.0044, 0.0015, 0.0004, 0.00005)
+length(stn_data$who2025_21ag)
+sum(stn_data$who2025_21ag)
+
+
+# WHO standard up to 85+
+stn_data$who2025_18ag <- c(0.0886, 0.0869, 0.086, 0.0847, 0.0822, 0.0793, 0.0761, 0.0715,
+                    0.0659, 0.0604, 0.0537, 0.0455, 0.0372, 0.0296, 0.0221, 0.0152, 0.0091, 0.0063)
+length(stn_data$who2025_18ag)
+sum(stn_data$who2025_18ag)
+
+# Segi standard up to 85+
+stn_data$segi_18ag <- c(0.12, 0.1, 0.09, 0.09, 0.08, 0.08, 0.06, 0.06, 0.06, 0.06, 0.05, 0.04, 0.04,
+                        0.03, 0.02, 0.01, 0.005, 0.005)
+length(stn_data$segi_18ag)
+sum(stn_data$segi_18ag)
+
+
+usethis::use_data(stn_data, internal=T, overwrite = TRUE)
+
+
+
+check_rhub()
+
+# submit
+devtools::release()
+

@@ -1,3 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^mynotes$
+^cran-comments\.md$
+^revdep$
+^NEWS\.md$

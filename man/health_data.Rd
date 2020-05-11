@@ -4,7 +4,8 @@
 \name{health_data}
 \alias{health_data}
 \title{Scottish health and deprivation data}
-\format{A data frame with 182160 rows and 15 variables:
+\format{
+A data frame with 182160 rows and 15 variables:
 \describe{
   \item{PS_code}{postcode sector code}
   \item{PS_name}{postcode sector name}
@@ -22,10 +23,11 @@
   \item{fg}{number of people in fairly good health}
   \item{good}{number of people in good health}
   \item{pop}{number of people in age and ethnic group in postcode sector}
-  }}
+  }
+}
 \source{
 For Carstairs deprivation data look at
- \url{https://www.gla.ac.uk/researchinstitutes/healthwellbeing/research/mrccsosocialandpublichealthsciencesunit/programmes/inequalities/carstairsscores/}
+ \url{http://www.sphsu.mrc.ac.uk/carstairs_2011_report_final_v3_-update-06-16-.pdf}
 
 For health data see the 2011 census commissioned tables \url{http://www.scotlandscensus.gov.uk/ods-web/data-warehouse.html#additionaltab}
 }

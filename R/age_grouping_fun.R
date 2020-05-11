@@ -18,9 +18,9 @@ age_grouping <- function(age_group, st_pop, min_age, n_age) {
   #define standard population weights
  if (!is.null(st_pop)) {
    if (is.numeric(st_pop)) {
-      sp=st_pop
+      sp = st_pop
     } else {
-      sp=stn_data[[st_pop]]
+      sp = stn_data[[st_pop]]
     }
  }
 
