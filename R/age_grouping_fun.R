@@ -31,7 +31,7 @@ age_grouping <- function(age_group, st_pop, min_age, n_age) {
     Ta <- data.frame(age1, age2)
 
     a_n <- length(age_group)
-    a <- strsplit(age_group, "-", fixed=TRUE)
+    a <- strsplit(age_group, "-", fixed = TRUE)
 
     if (length(a[[a_n]])==1) {a[[a_n]][2] <- 100}
 

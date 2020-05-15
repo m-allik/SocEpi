@@ -4,7 +4,7 @@
 \alias{w_pcntile}
 \title{Function to create population weighted deprivation percentiles}
 \usage{
-w_pcntile(data, population, variable, p = 10, low = F)
+w_pcntile(data, population, variable, p = 10, low = FALSE)
 }
 \arguments{
 \item{data}{name of the dataset}
@@ -37,10 +37,10 @@ tapply(data$pcnt_overcrowding, data$dec_overcrowd, mean)
 round(tapply(data$total_pop, data$dec_overcrowd, sum)/sum(data$total_pop)*100, 1)
 
 #calculate quintiles from deciles
-data$Q_overcrowd <- cut(data$dec_overcrowd, breaks=5, labels=1:5)
+data$Q_overcrowd <- cut(data$dec_overcrowd, breaks = 5, labels = 1:5)
 
 #calculate quintiles with w_pcntile
-data$Q_overcrowd2 <- w_pcntile(data, total_pop, pcnt_overcrowding, p=5)
+data$Q_overcrowd2 <- w_pcntile(data, total_pop, pcnt_overcrowding, p = 5)
 
 #compare results - note small differences
 table(data$Q_overcrowd, data$Q_overcrowd2)

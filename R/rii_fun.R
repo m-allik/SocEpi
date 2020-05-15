@@ -66,7 +66,7 @@
 
 
 rii <- function(data, health, population, ses, age, groups = NULL, age_group = NULL, st_pop = "esp2013_18ag",
-                N = 1000, RII = T, CI = 95, method = "multinomial", W=F, total = 1000) {
+                N = 1000, RII = TRUE, CI = 95, method = "multinomial", W = FALSE, total = 1000) {
 
   # For package building only - to get rid of NOTEs
   cr <- rate <- sii <- . <- w <- age_health <- ci_low <- ci_high <- NULL
@@ -91,7 +91,7 @@ rii <- function(data, health, population, ses, age, groups = NULL, age_group = N
   # Observed data - summarized up by age across all SES
   D_A <- df %>% group_by(age) %>%
     summarise_all(sum) %>%
-    mutate(ses=n_g+1, tp=NA)
+    mutate(ses=n_g + 1, tp = NA)
 
   # Observed data - by SES and age
   DT <- df %>% group_by(ses, age) %>%
@@ -117,7 +117,7 @@ rii <- function(data, health, population, ses, age, groups = NULL, age_group = N
 
   # standardization for age groups
   d6g <- DT %>%
-    filter(is.na(g1)==F) %>%
+    filter(is.na(g1) == FALSE) %>%
     mutate(rate=cr*sp/sp_g1) %>%
     select(ses, rate, population, tp, g1) %>%
     group_by(ses, g1) %>%
@@ -138,7 +138,7 @@ rii <- function(data, health, population, ses, age, groups = NULL, age_group = N
   # Calculate RII/SII
   #================================================================
 
-  if (RII==T) {
+  if (RII == TRUE) {
   # Health rates by age across all SES - needed for RII later
   all_rates <- bind_rows(d6g, d64, da) %>%
     select(ses, age, rate)  %>%
@@ -151,7 +151,7 @@ rii <- function(data, health, population, ses, age, groups = NULL, age_group = N
     group_by(age) %>%
     mutate(cum_p = popmid(pop)) %>% rename(dep=ses)
 
-  if (W == F) {
+  if (W == FALSE) {
     sii_obs <- rates %>%
       summarise(sii = beta(x = cum_p, y = rate))
   } else {
@@ -177,7 +177,7 @@ rii <- function(data, health, population, ses, age, groups = NULL, age_group = N
 
   # Standardization for provided age groups
   d6gs <- Ds %>%
-    filter(is.na(g1)==F) %>%
+    filter(is.na(g1) == FALSE) %>%
     mutate_at(vars(3:(2+n_g)), funs(.*sp/sp_g1)) %>%
     select(sim:g1, -sp) %>%
     group_by(sim, g1) %>%
@@ -201,7 +201,7 @@ rii <- function(data, health, population, ses, age, groups = NULL, age_group = N
     left_join(rates[,c("age", "dep", "pop", "cum_p")], c("age", "dep")) %>%
     group_by(sim, age)
 
-  if (W==F) {
+  if (W == FALSE) {
     sii_s <- rates_s %>%
       summarise(sii = beta(x = cum_p, y = rate_sim))
   } else {
@@ -224,7 +224,7 @@ rii <- function(data, health, population, ses, age, groups = NULL, age_group = N
     ungroup()
 
   # Calculate RII from SII
-  if (RII==T) {OUT <- OUT %>% left_join(all_rates, by="age") %>%
+  if (RII == TRUE) {OUT <- OUT %>% left_join(all_rates, by="age") %>%
     mutate_at(vars(sii:ci_high), funs(./rate)) %>%
     rename(rii=sii) %>% select(1:4)}
 

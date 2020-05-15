@@ -27,15 +27,15 @@ population distribution given by \code{population}.
 \examples{
 data <- dep_data
 
-# store all data in object z_oc
+# store all results in object z_oc
 z_oc <- zscore(data$total_pop, data$pcnt_overcrowding)
 
 # extract z-score
 data$z_overcrowd <- z_oc$z.score
-mean(data$z_overcrowd) #mean of z-score
-sd(data$z_overcrowd) #sd z-score
+mean(data$z_overcrowd) # mean of z-score
+sd(data$z_overcrowd) # sd z-score
 
-# compare weighted mean to actual mean
+# extract weighted mean and sd, compare weighted values to unweighted values
 mean(data$pcnt_overcrowding)
 z_oc$w.mean
 sd(data$pcnt_overcrowding)

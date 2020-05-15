@@ -46,6 +46,6 @@ smr(d, bad, pop, age, ethnicity, sets = c("Scot", "asian"))
 
 # Asian, White British and Irish population compared to Scottish (reference)
 smr(d, bad, pop, age, ethnicity, sets = c("Scot", "asian", "WB", "Irish"),
-  age_group = c("15-29", "30-44"), CI=99)
+  age_group = c("15-29", "30-44"), CI = 99)
 
 }

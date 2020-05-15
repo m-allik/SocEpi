@@ -18,7 +18,7 @@ subset_q <- function(df, condition, variables) {
   var_pos <- setNames(as.list(seq_along(df)), names(df))
   pos <- eval(variables, var_pos, parent.frame())
 
-  if (!is.null(condition)) {df[r, pos, drop=F]} else {
-    df[, pos, drop=F]
+  if (!is.null(condition)) {df[r, pos, drop = FALSE]} else {
+    df[, pos, drop = FALSE]
     }
   }

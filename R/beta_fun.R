@@ -14,7 +14,7 @@
 #'
 
 
-beta <- function(x, y, w=NULL){
+beta <- function(x, y, w = NULL){
 
   X <- cbind(1, x)
 

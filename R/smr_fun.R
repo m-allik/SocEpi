@@ -34,11 +34,11 @@
 #'
 #' # Asian, White British and Irish population compared to Scottish (reference)
 #' smr(d, bad, pop, age, ethnicity, sets = c("Scot", "asian", "WB", "Irish"),
-#'   age_group = c("15-29", "30-44"), CI=99)
+#'   age_group = c("15-29", "30-44"), CI = 99)
 #'
 
 
-smr <- function(data, health, population, age, compare, sets, age_group=NULL, CI=95) {
+smr <- function(data, health, population, age, compare, sets, age_group = NULL, CI = 95) {
 
   #For package building only - to get rid of NOTEs
 
@@ -64,7 +64,7 @@ smr <- function(data, health, population, age, compare, sets, age_group=NULL, CI
   if (is.null(age_group)) {age_group=c("0-14", "15-29", "30-44", "45-59", "60-74", "75")} #set default age group names
 
   # Merge data to age group IDs
-  df <- merge(df, dw, by="age")
+  df <- merge(df, dw, by = "age")
 
 
   #### Aggregate data for age groups

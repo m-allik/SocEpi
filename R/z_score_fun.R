@@ -19,15 +19,15 @@
 #' @examples
 #' data <- dep_data
 #'
-#' # store all data in object z_oc
+#' # store all results in object z_oc
 #' z_oc <- zscore(data$total_pop, data$pcnt_overcrowding)
 #'
 #' # extract z-score
 #' data$z_overcrowd <- z_oc$z.score
-#' mean(data$z_overcrowd) #mean of z-score
-#' sd(data$z_overcrowd) #sd z-score
+#' mean(data$z_overcrowd) # mean of z-score
+#' sd(data$z_overcrowd) # sd z-score
 #'
-#' # compare weighted mean to actual mean
+#' # extract weighted mean and sd, compare weighted values to unweighted values
 #' mean(data$pcnt_overcrowding)
 #' z_oc$w.mean
 #' sd(data$pcnt_overcrowding)
@@ -39,20 +39,20 @@ zscore <- function(population, variable) {
 
   data <- data.frame(population, variable)
 
-  #weights
-  data$weight <- data$population/sum(data$population, na.rm=T)
+  # weights
+  data$weight <- data$population/sum(data$population, na.rm = TRUE)
 
-  #calculate weighted mean and sd
-  w.mean <- sum(data$variable*data$weight, na.rm=T)
+  # calculate weighted mean and sd
+  w.mean <- sum(data$variable*data$weight, na.rm = TRUE)
   x <- ((data$variable - w.mean)^2)*data$weight
-  w.sd <- sqrt(sum(x, na.rm=T))
+  w.sd <- sqrt(sum(x, na.rm = TRUE))
 
-  #z-score
+  # z-score
   data$z.score <- (data$variable - w.mean)/w.sd
 
-  cat("Weighted mean =", w.mean, "\n", "Weigted SD =", w.sd, "\n")
+  # cat("Weighted mean =", w.mean, "\n", "Weigted SD =", w.sd, "\n")
 
-  output <-list("z.score" = data$z.score, "w.mean" = w.mean, "w.sd" = w.sd, "weight" = data$weight)
+  output <- list("z.score" = data$z.score, "w.mean" = w.mean, "w.sd" = w.sd, "weight" = data$weight)
   #output <- cbind(w.mean, w.sd)
   return(output)
 

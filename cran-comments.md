@@ -1,7 +1,7 @@
 
 ## Submission
 
-This is a first submission.
+This is a resubmission to fix minor errors outlined in your email after my first submission. Thanks!
 
 ## Test environments
 

@@ -60,13 +60,13 @@ A data frame giving standardized rates by age group and deprivation together wit
 d <- health_data
 
 # Standardized rates for all people
-st_rate(d, bad, pop, quintile, age, ethnicity=="all")
+st_rate(d, bad, pop, quintile, age, ethnicity == "all")
 
 # Or save results
-rate_data <- st_rate(d, bad, pop, quintile, age, ethnicity=="all")
+rate_data <- st_rate(d, bad, pop, quintile, age, ethnicity == "all")
 # Then use View(rate_data) to view results
 
 # Standardized rates for Scottish, with 99\% CI
-st_rate(d, bad, pop, quintile, age, ethnicity=="Scot", age_group=c("15-29", "30-44"), CI=99)
+st_rate(d, bad, pop, quintile, age, ethnicity == "Scot", age_group = c("15-29", "30-44"), CI = 99)
 
 }

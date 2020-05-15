@@ -155,7 +155,7 @@ usethis::use_data(stn_data, internal=T, overwrite = TRUE)
 
 
 
-check_rhub()
+#check_rhub()
 
 # submit
 devtools::release()

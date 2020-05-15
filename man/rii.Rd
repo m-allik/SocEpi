@@ -14,10 +14,10 @@ rii(
   age_group = NULL,
   st_pop = "esp2013_18ag",
   N = 1000,
-  RII = T,
+  RII = TRUE,
   CI = 95,
   method = "multinomial",
-  W = F,
+  W = FALSE,
   total = 1000
 )
 }

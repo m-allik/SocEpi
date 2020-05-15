@@ -36,14 +36,14 @@
 #' d <- health_data
 #'
 #' # Standardized rates for all people
-#' st_rate(d, bad, pop, quintile, age, ethnicity=="all")
+#' st_rate(d, bad, pop, quintile, age, ethnicity == "all")
 #'
 #' # Or save results
-#' rate_data <- st_rate(d, bad, pop, quintile, age, ethnicity=="all")
+#' rate_data <- st_rate(d, bad, pop, quintile, age, ethnicity == "all")
 #' # Then use View(rate_data) to view results
 #'
 #' # Standardized rates for Scottish, with 99% CI
-#' st_rate(d, bad, pop, quintile, age, ethnicity=="Scot", age_group=c("15-29", "30-44"), CI=99)
+#' st_rate(d, bad, pop, quintile, age, ethnicity == "Scot", age_group = c("15-29", "30-44"), CI = 99)
 #'
 
 
@@ -90,7 +90,7 @@ st_rate <- function(data, health, population, ses, age, groups = NULL, age_group
       mutate(age = "all")
 
     d6g <- DT %>%
-      filter(is.na(g1)==F) %>%
+      filter(is.na(g1) == FALSE) %>%
       mutate(rate=cr*sp/sp_g1) %>%
       select(ses, g1, rate, health) %>%
       group_by(ses, g1) %>%

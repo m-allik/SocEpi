@@ -24,22 +24,22 @@
 #' round(tapply(data$total_pop, data$dec_overcrowd, sum)/sum(data$total_pop)*100, 1)
 #'
 #' #calculate quintiles from deciles
-#' data$Q_overcrowd <- cut(data$dec_overcrowd, breaks=5, labels=1:5)
+#' data$Q_overcrowd <- cut(data$dec_overcrowd, breaks = 5, labels = 1:5)
 #'
 #' #calculate quintiles with w_pcntile
-#' data$Q_overcrowd2 <- w_pcntile(data, total_pop, pcnt_overcrowding, p=5)
+#' data$Q_overcrowd2 <- w_pcntile(data, total_pop, pcnt_overcrowding, p = 5)
 #'
 #' #compare results - note small differences
 #' table(data$Q_overcrowd, data$Q_overcrowd2)
 
 
-w_pcntile <- function(data, population, variable, p=10, low=F) {
+w_pcntile <- function(data, population, variable, p = 10, low = FALSE) {
 
 
 
   # function starts - subset data
-  df <- subset_q(data, NULL, substitute(c(population, variable))) #select data from data frame
-  names(df) <- c("population", "variable") #give names to use within function
+  df <- subset_q(data, NULL, substitute(c(population, variable))) # select data from data frame
+  names(df) <- c("population", "variable") # give names to use within function
 
   # number of cases
   N <- length(df$population)
@@ -48,7 +48,7 @@ w_pcntile <- function(data, population, variable, p=10, low=F) {
   # Remove missing data
   if (any(is.na(df$variable))) {
     has.missing <- TRUE
-    original.index <- df[, "index", drop = F]
+    original.index <- df[, "index", drop = FALSE]
     df <- df[!is.na(df$variable), ]
 
     # if ()... deal with missing population variable?
@@ -67,7 +67,7 @@ w_pcntile <- function(data, population, variable, p=10, low=F) {
 
   if (has.missing) {
     # add data to original index, thereby padding again with NA values
-    df <- merge(original.index, df, by = "index", all=T)
+    df <- merge(original.index, df, by = "index", all = TRUE)
 
   }
 
