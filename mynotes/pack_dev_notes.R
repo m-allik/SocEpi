@@ -43,8 +43,8 @@ devtools::load_all()
 
 devtools::test()
 
-usethis::use_testthat()
-usethis::use_test()
+# usethis::use_testthat()
+# usethis::use_test()
 
 # may help sometimes to update packages
 # https://github.com/r-lib/devtools/issues/1607
@@ -155,7 +155,7 @@ usethis::use_data(stn_data, internal=T, overwrite = TRUE)
 
 
 
-#check_rhub()
+devtools::check_rhub()
 
 # submit
 devtools::release()

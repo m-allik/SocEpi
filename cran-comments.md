@@ -1,7 +1,7 @@
 
 ## Submission
 
-This is a resubmission to fix minor errors outlined in your email after my first submission. Thanks!
+This is a resubmission to fix errors in description outlined in your email after my first resubmission. `zscore` is a function name. Thanks!
 
 ## Test environments
 
