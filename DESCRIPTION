@@ -5,8 +5,8 @@ Version: 1.0.0
 Authors@R: person("Mirjam", "Allik", email="mirjam.allik@gmail.com",
                   role=c("aut", "cre"))
 Description: Tools for calculating deprivation measures and analysing health outcomes and mortality by deprivation.
-    Included are the functions: zscore and w_pcntile for developing deprivation measures and the functions smr,
-    st_rate and rii for calculating standardized mortality ratios, direct standardized rates and Slope and Relative
+    Included are the functions: zscore() and w_pcntile() for developing deprivation measures and the functions smr(),
+    st_rate() and rii() for calculating standardized mortality ratios, direct standardized rates and Slope and Relative
     indices of Inequality (SII and RII). Test data is included (dep_data and health_data).
     The RII/SII are calculated following Pamuk ER (1985) <doi:10.1080/0032472031000141256>.
     The confidence intervals for SII/RII are calculated using a multinomial distribution as described in Lumme et al (2015)
