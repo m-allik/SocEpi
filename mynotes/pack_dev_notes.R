@@ -28,11 +28,11 @@ roxygen2::roxygenise()
 
 usethis::use_vignette("SocEpi-vignette")
 
-usethis::use_build_ignore("mynotes") #ingnore directory "mynotes"
-usethis::use_build_ignore("cran-comments.md") #ingnore cran comments
-usethis::use_build_ignore("NEWS.md") #ingnore cran comments
+usethis::use_build_ignore("mynotes") # ignore directory "mynotes"
+usethis::use_build_ignore("cran-comments.md") # ignore cran comments
+usethis::use_build_ignore("NEWS.md") # ignore
 
-devtools::check()
+
 devtools::install()
 library(SocEpi)
 
@@ -41,7 +41,7 @@ revdepcheck::revdep_check(num_workers = 4)
 
 devtools::load_all()
 
-devtools::test()
+devtools::test() # Run tests
 
 # usethis::use_testthat()
 # usethis::use_test()
@@ -153,10 +153,18 @@ sum(stn_data$segi_18ag)
 
 usethis::use_data(stn_data, internal=T, overwrite = TRUE)
 
+# Spell check
+devtools::spell_check() # spell check
 
+# Step 1
+devtools::check() # Check package  to remove notes, errors
 
+# Step 2
 devtools::check_rhub()
 
-# submit
+# Step 3
+# Stage, commit and push to github
+
+# submit to CRAN
 devtools::release()
 

@@ -49,7 +49,7 @@ library(SocEpi)
 When the package is loaded test to see if you can run some of the examples from the help documentation. The package includes the following functions: `zscore`, `w_pcntile`, `smr`, `st_rate` and `rii`. You can look each of these up using `?`*function_name*. For example, use `?w_pcntile` or `?rii` to look up the weighted percentile and the SII/RII functions. The package also includes test data (*dep_data* and *health_data*), you can look up the code books for these by typing `?dep_data` and `?health_data`. Use `summmary(health_data)` or `str(health_data)` to look at the data. Follow the examples given in the help documentation to see how the functions work. If the code in the help files gives you the same results as below then the package is loaded successfully and you can test it on your own data.
 
 
-## Functions for measruing deprivation
+## Functions for measuring deprivation
 
 The functions `zscore` and `w_pcntile` are useful for developing deprivation measures. `zscore` calculates z-scores (standardized scores) for a deprivation indicator (e.g. percent unemployed) with a mean close to zero and standard deviation (sd) close to one.
 
@@ -88,7 +88,7 @@ tapply(data$pcnt_overcrowding, data$dec_overcrowd, mean)
 
 
 
-## Functions for measruing health inequalities
+## Functions for measuring health inequalities
 
 
 The three functions `smr`, `st_rate` and `rii` are useful for measuring health and health inequalities. The `smr` function calculates standardized mortality ratios (SMR) and confidence intervals using indirect standardization. The function requires that at least two population groups be provided by the `sets` argument. The first of these populations will be used as the standard or the reference population and the SMRs will be calculated for the second population. If more than two groups are identified the first population will still be the reference population and the SMRs will be calculated for all other groups. The `smr`, `st_rate` and `rii` all allow the used to select age groups for which the results are provided, results for ages 0-64 and all ages are always provided.

@@ -1,7 +1,7 @@
 
 ## Submission
 
-This is a resubmission to fix errors in description outlined in your email after my first resubmission. `zscore` is a function name. Thanks!
+This is a resubmission to fix errors in description. Parentheses were added to function names. Thanks!
 
 ## Test environments
 
