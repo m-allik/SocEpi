@@ -156,6 +156,7 @@ usethis::use_data(stn_data, internal=T, overwrite = TRUE)
 # Spell check
 devtools::spell_check() # spell check
 
+
 # Step 1
 devtools::check() # Check package  to remove notes, errors
 
